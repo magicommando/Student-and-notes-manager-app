@@ -8,7 +8,7 @@ export default function StudentDetails({student, onUpdateNotes}) {
     }, [student]);
 
     if (!student) {
-        return <div className="student-details">Select a student to view details.</div>;
+        return <div className="student-details">Details on the chosen Student.</div>;
     }
 
     const handleSaveNotes = () => {

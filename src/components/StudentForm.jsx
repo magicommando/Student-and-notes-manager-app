@@ -37,41 +37,64 @@ export default function StudentForm({ initialData, onSubmit, onCancel }) {
         <form className="student-form" onSubmit={handleSubmit}>
             <h2>{initialData ? 'Edit Student' : 'Add Student'}</h2>
 
-            <label>
+            <label className="input-wrapper">
                 Name
                 <input
                  value={name}
                  onChange={e => setName(e.target.value)}
-                 placeholder="student name"
+                 placeholder="Type the NAME!!"
                />
+
+               {name&& (
+                <span className="clear-x" onClick={() => setName("")}>
+                  ✖ 
+                </span>
+               )}
             </label>
 
-            <label>
-                title
+            <label className="input-wrapper">
+                Title
                 <input
                  value={title}
                  onChange={e => setTitle(e.target.value)}
-                 placeholder="e.g. Freshman, Senior"
+                 placeholder="e.g. Entry, Mid, Senior level"
                 />
+
+                {title&& (
+                    <span className="clear-x" onClick={() => setTitle("")}>
+                      ✖
+                    </span>
+                )}
             </label>
 
-            <label>
+            <label className="input-wrapper">
                 Role
                 <input
                 value={role}
                 onChange={e => setRole(e.target.value)}
-                placeholder="e.g Class Rep, Tutor"
+                placeholder="e.g Assistant, instructor, Mentor"
                 />
+                {role&& (
+                    <span className="clear-x" onClick={() => setRole("")}>
+                      ✖
+                    </span>
+                )}
             </label>
 
-            <label>
-                Notes
-                <textarea
-                  value={notes}
-                  onChange={e => setNotes(e.target.value)}
-                  placeholder="Quick notes about this student"
-                />
-            </label>
+            <label className="textarea-wrapper">
+  Notes
+  <textarea
+    value={notes}
+    onChange={e => setNotes(e.target.value)}
+    placeholder="Write notes here..."
+  />
+
+  {notes && (
+    <span className="clear-x textarea-clear" onClick={() => setNotes("")}>
+      ✖
+    </span>
+  )}
+</label>
 
             <div className="form-actions">
                 <button type="submit">

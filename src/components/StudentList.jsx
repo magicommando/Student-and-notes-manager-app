@@ -8,7 +8,7 @@ export default function StudentList({
     selectedId,
 }) {
    if (!students.length) {
-    return <p>No students yet. Add one above.</p>
+    return <p>Keep track, details Matter!.</p>
    }
 
    return (

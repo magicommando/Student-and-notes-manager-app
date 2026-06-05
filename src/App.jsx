@@ -95,10 +95,31 @@ function App() {
   return (
   <>
     <div className="overlay"></div>
+    <div className="crt-scanlines"></div>
+    <div className="chromatic-aberration"></div>
+    <div className="crt-vignette"></div>
+    <div className="vhs-static"></div>
+
 
     <div className="app-content">
       <div className="app">
-        <h1>Student Ledger Manager</h1>
+        <h1>Student Note and Ledger Manager</h1>
+        <div className="top-bar">
+  <div className="student-count">
+    Students: {students.length}
+  </div>
+
+  {students.length > 0 && (
+    <button className="clear-all" onClick={() => {
+      setStudents([]);
+      setSelectedId(null);
+      localStorage.removeItem("students");
+      localStorage.removeItem("selectedId");
+    }}>
+      Clear All
+    </button>
+  )}
+</div>
 
         <div className="layout">
           <div className="left-panel">

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -52,6 +53,7 @@
 
 body {
   margin: 0;
+  font-family: 'Audiowide', sans-serif;
 }
 
 #root {
@@ -68,7 +70,6 @@ body {
 
 h1,
 h2 {
-  font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
@@ -97,7 +98,6 @@ p {
 
 code,
 .counter {
-  font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
   color: var(--text-h);
