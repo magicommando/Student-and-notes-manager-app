@@ -1,16 +1,39 @@
-
-import { useState, useMemo } from 'react';
-import StudentForm from './StudentForm';
-import StudentFilters from './StudentFilters';
-import StudentList from './StudentList';
-import StudentDetails from './StudentDetails';
+import { useState, useMemo, useEffect } from 'react';
+import StudentForm from './components/StudentForm';
+import StudentFilters from './components/StudentFilters';
+import StudentList from './components/StudentList';
+import StudentDetails from './components/StudentDetails';
+import './App.css'
+import GothicCoder from './assets/Gothic-coder-.png';
 
 function App() {
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [editingStudent, setEditingStudent] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('students');
+    if (saved) {
+      setStudents(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('students', JSON.stringify(students));
+  }, [students]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('selectedId');
+    if (saved) setSelectedId(saved);
+  }, []);
+
+  useEffect(() => {
+    if (selectedId !== null) {
+      localStorage.setItem('selectedId', selectedId);
+    }
+  }, [selectedId]);
 
   const handleAddOrUpdate = (studentData) => {
     if (studentData.id) {
@@ -36,13 +59,9 @@ function App() {
     if (selectedId === id) setSelectedId(null);
   };
 
-  const handleSelect = (id) => {
-    setSelectedId(id);
-  };
+  const handleSelect = (id) => setSelectedId(id);
 
-  const handleEdit = (student) => {
-    setEditingStudent(student);
-  };
+  const handleEdit = (student) => setEditingStudent(student);
 
   const handleUpdateNotes = (id, notes) => {
     setStudents(prev =>
@@ -52,6 +71,7 @@ function App() {
 
   const filteredAndSorted = useMemo(() => {
     let list = [...students];
+
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(s =>
@@ -72,16 +92,21 @@ function App() {
 
   const selectedStudent = students.find(s => s.id === selectedId) || null;
 
-   return (
-    <div className="app">
-      <h1>Student Ledger Manager</h1>
-      <div className="layout">
-        <div className="left-panel">
-          <StudentForm
-            key={editingStudent?.id || 'new'}
-            initialData={editingStudent}
-            onSubmit={handleAddOrUpdate}
-            onCancel={() => setEditingStudent(null)}
+  return (
+  <>
+    <div className="overlay"></div>
+
+    <div className="app-content">
+      <div className="app">
+        <h1>Student Ledger Manager</h1>
+
+        <div className="layout">
+          <div className="left-panel">
+            <StudentForm
+              key={editingStudent?.id || 'new'}
+              initialData={editingStudent}
+              onSubmit={handleAddOrUpdate}
+              onCancel={() => setEditingStudent(null)}
             />
 
             <StudentFilters
@@ -89,10 +114,10 @@ function App() {
               onSearchChange={setSearch}
               sortBy={sortBy}
               onSortChange={setSortBy}
-              />
+            />
 
             <StudentList
-              student={filteredAndSorted}
+              students={filteredAndSorted}
               onSelect={handleSelect}
               onDelete={handleDelete}
               onEdit={handleEdit}
@@ -100,15 +125,19 @@ function App() {
             />
           </div>
 
-          <div className="rightpanel">
+          <div className="right-panel">
             <StudentDetails
               student={selectedStudent}
               onUpdateNotes={handleUpdateNotes}
-            /> 
+            />
           </div>
         </div>
       </div>
-   );
-} 
+    </div>
+  </>
+);
+
+  
+}
 
 export default App;

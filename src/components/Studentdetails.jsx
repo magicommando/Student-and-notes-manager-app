@@ -4,7 +4,7 @@ export default function StudentDetails({student, onUpdateNotes}) {
     const [draftNotes, setDraftNotes] = useState('')
 
     useEffect(() => {
-      setDraftNotes(student?.notes ||'');
+      setDraftNotes(student?.notes || '');
     }, [student]);
 
     if (!student) {
@@ -32,7 +32,7 @@ export default function StudentDetails({student, onUpdateNotes}) {
             <p className="meta">
                 <small>
                     Created: {new Date(student.createdAt).toLocaleString()}<br />
-                    Updated: {new Date(student.updatedAt)/toLocalString()}
+                    Updated: {new Date(student.updatedAt).toLocaleString()}
                 </small>
             </p>
         </div>

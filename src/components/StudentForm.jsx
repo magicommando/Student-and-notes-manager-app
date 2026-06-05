@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 
 export default function StudentForm({ initialData, onSubmit, onCancel }) {
-    const [name ,setname] = useState('')
-    const [title, setName] = useState('')
+    const [name ,setName] = useState('')
+    const [title, setTitle] = useState('')
     const [role, setRole] = useState('')
     const [notes, setNotes] = useState('')
 
     useEffect(() => {
       if (initialData) {
         setName(initialData.name || '');
-        setTitle(initialData.title ||'');
+        setTitle(initialData.title || '');
         setRole(initialData.role || '')
-        setNotes(initialData.notes ||'')
+        setNotes(initialData.notes || '')
       } else{
         setName('')
         setTitle('')

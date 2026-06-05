@@ -17,9 +17,10 @@ export default function StudentList({
             <StudentItem
             key={student.id}
             student={student}
-            isSelected={student,id === selectedId}
+            isSelected={student.id === selectedId}
             onSelect={() => onSelect(student.id)}
-            onDelete={ () => onEdit(student)}
+            onDelete={() => onDelete(student.id)}
+            onEdit={() => onEdit(student)}
         />
       ))}
     </ul>

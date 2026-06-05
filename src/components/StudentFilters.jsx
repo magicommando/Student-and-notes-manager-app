@@ -15,7 +15,7 @@ export default function StudentFilters({
 
         <select
           value={sortBy}
-          onChange={e => onSortChange(e,target.value)}
+          onChange={e => onSortChange(e.target.value)}
         >
             <option value="name">Sort by name</option>
             <option value="role">Sort by role</option>
