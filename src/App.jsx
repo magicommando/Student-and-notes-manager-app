@@ -1,122 +1,114 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+
+import { useState, useMemo } from 'react';
+import StudentForm from './StudentForm';
+import StudentFilters from './StudentFilters';
+import StudentList from './StudentList';
+import StudentDetails from './StudentDetails';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [students, setStudents] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState('name');
+  const [editingStudent, setEditingStudent] = useState(null);
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+  const handleAddOrUpdate = (studentData) => {
+    if (studentData.id) {
+      setStudents(prev =>
+        prev.map(s =>
+          s.id === studentData.id ? { ...s, ...studentData, updatedAt: Date.now() } : s
+        )
+      );
+    } else {
+      const newStudent = {
+        ...studentData,
+        id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+      setStudents(prev => [...prev, newStudent]);
+    }
+    setEditingStudent(null);
+  };
+
+  const handleDelete = (id) => {
+    setStudents(prev => prev.filter(s => s.id !== id));
+    if (selectedId === id) setSelectedId(null);
+  };
+
+  const handleSelect = (id) => {
+    setSelectedId(id);
+  };
+
+  const handleEdit = (student) => {
+    setEditingStudent(student);
+  };
+
+  const handleUpdateNotes = (id, notes) => {
+    setStudents(prev =>
+      prev.map(s => (s.id === id ? { ...s, notes, updatedAt: Date.now() } : s))
+    );
+  };
+
+  const filteredAndSorted = useMemo(() => {
+    let list = [...students];
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(s =>
+        [s.name, s.title, s.role, s.notes]
+          .filter(Boolean)
+          .some(field => field.toLowerCase().includes(q))
+      );
+    }
+
+    list.sort((a, b) => {
+      if (sortBy === 'createdAt') return b.createdAt - a.createdAt;
+      if (sortBy === 'role') return a.role.localeCompare(b.role);
+      return a.name.localeCompare(b.name);
+    });
+
+    return list;
+  }, [students, search, sortBy]);
+
+  const selectedStudent = students.find(s => s.id === selectedId) || null;
+
+   return (
+    <div className="app">
+      <h1>Student Ledger Manager</h1>
+      <div className="layout">
+        <div className="left-panel">
+          <StudentForm
+            key={editingStudent?.id || 'new'}
+            initialData={editingStudent}
+            onSubmit={handleAddOrUpdate}
+            onCancel={() => setEditingStudent(null)}
+            />
+
+            <StudentFilters
+              search={search}
+              onSearchChange={setSearch}
+              sortBy={sortBy}
+              onSortChange={setSortBy}
+              />
+
+            <StudentList
+              student={filteredAndSorted}
+              onSelect={handleSelect}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              selectedId={selectedId}
+            />
+          </div>
+
+          <div className="rightpanel">
+            <StudentDetails
+              student={selectedStudent}
+              onUpdateNotes={handleUpdateNotes}
+            /> 
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </div>
+   );
+} 
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+export default App;
