@@ -103,7 +103,7 @@ function App() {
 
     <div className="app-content">
       <div className="app">
-        <h1>Student Note and Ledger Manager</h1>
+        <h1>Student And Note Manager</h1>
         <div className="top-bar">
   <div className="student-count">
     Students: {students.length}
