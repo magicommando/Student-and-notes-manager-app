@@ -43,7 +43,7 @@ and slightly unstable.
 Screenshots:
 ------------
 ## Empty entries
-![Retro styled student management interface showing an empty student list with neon green and ultraviolet CRT terminal visual effects, search filters, and note entry panel](assets/Student-note-app-scrnshot2.jpeg)
+![Retro styled student management interface showing an empty student list with neon green and ultraviolet CRT terminal visual effects, search filters, and note entry panel](src/assets/Student-note-app-scrnshot2.jpeg)
 
 SYSTEM REQUIREMENTS
 -------------------
@@ -57,7 +57,7 @@ SYSTEM REQUIREMENTS
 INSTALLATION PROCEDURE
 ----------------------
 1. Acquire source package:
-       git clone https://github.com/YOUR-USERNAME/YOUR-REPO
+       git clone https://github.com/magicommando/Student-and-notes-manager-app cd Student-and-notes-manager-app
        cd YOUR-REPO
 
 2. Install dependencies:
