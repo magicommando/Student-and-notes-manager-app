@@ -43,7 +43,7 @@ and slightly unstable.
 Screenshots:
 ------------
 ## Empty entries
-![Student page](assets/Student-notes-app-scrnshot2.jpeg)
+![Student page](assets/Student-note-app-scrnshot2.jpeg)
 
 SYSTEM REQUIREMENTS
 -------------------
