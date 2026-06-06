@@ -58,7 +58,6 @@ INSTALLATION PROCEDURE
 ----------------------
 1. Acquire source package:
        git clone https://github.com/magicommando/Student-and-notes-manager-app cd Student-and-notes-manager-app
-       cd YOUR-REPO
 
 2. Install dependencies:
        npm install
