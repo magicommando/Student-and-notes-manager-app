@@ -43,7 +43,7 @@ and slightly unstable.
 Screenshots:
 ------------
 ## Empty entries
-![Student page](assets/Student-note-app-scrnshot2.jpeg)
+![Retro styled student management interface showing an empty student list with neon green and ultraviolet CRT terminal visual effects, search filters, and note entry panel](assets/Student-note-app-scrnshot2.jpeg)
 
 SYSTEM REQUIREMENTS
 -------------------
