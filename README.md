@@ -125,6 +125,7 @@ OPERATOR LOG: WHAT WAS LEARNED
 -------------------------------------------------------------------------------
 
 CREDITS
+<pre> <code>
 -------
 Programmed by: CORBIN
 Role: Carpenter, cyber‑goth engineer, glitch‑terminal architect
@@ -133,3 +134,4 @@ Location: Zuni Pueblo, NM
 -------------------------------------------------------------------------------
 END OF FILE
 ===============================================================================
+</code></pre>
